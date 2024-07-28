@@ -1,0 +1,198 @@
+.app {
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+
+    .todo-list-layout {
+        width: 205px;
+        padding: 20px;
+        gap: 12px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        background-color: #F5F5F5;
+
+        .title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .add-section {
+            width: 100%;
+            display: flex;
+            gap: 4px;
+        }
+
+        .list-section {
+            display: flex;
+            flex-direction: column;
+            gap: 4;
+
+            .date-status {
+                display: flex;
+                justify-content: space-between;
+
+                .status-container {
+                    display: flex;
+                    gap: 3;
+                }
+            }
+
+            .task-container {
+                max-height: 165px;
+                overflow: auto;
+                scrollbar-width: thin;
+            }
+        }
+
+        .prev-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .input {
+            height: 14px;
+            font-size: 11px;
+            padding: 5.5px;
+            border-radius: 4px;
+            background-color: #D9D9D9;
+            border: none;
+            outline: none;
+            min-width: 0px;
+            width: 500px;
+            font-weight: 300;
+
+            &::placeholder {
+                color: #BCAEAE;
+                font-size: 10px;
+                font-weight: 300;
+            }
+        }
+
+        .contained-button {
+            background-color: #BCAEAE;
+            padding: 5.5px;
+            height: 25px;
+            border-radius: 4px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .outlined-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .font-brown {
+            color: #7C4C4C;
+            font-weight: 300;
+            font-size: 8px;
+        }
+
+        .checkbox-container {
+            padding: 10px 5px;
+
+            .checkbox {
+                --size: 15px;
+                position: relative;
+            }
+
+            .checkbox *,
+            .checkbox *:before,
+            .checkbox *:after {
+                box-sizing: border-box;
+            }
+
+            .checkbox .promoted-input-checkbox {
+                border: 0;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            .checkbox input:checked~svg {
+                height: calc(var(--size) * 0.6);
+                -webkit-animation: draw-checkbox ease-in-out 0.2s forwards;
+                animation: draw-checkbox ease-in-out 0.2s forwards;
+            }
+
+            .checkbox label:active::after {
+                background-color: #e6e6e6;
+            }
+
+            .checkbox label {
+                color: #000000;
+                font-size: 11px;
+                line-height: var(--size);
+                cursor: pointer;
+                position: relative;
+                top: -3px;
+            }
+
+            .checkbox label:after {
+                content: "";
+                height: var(--size);
+                width: var(--size);
+                margin-right: 5px;
+                float: left;
+                border: 1px solid #000000;
+                border-radius: 3px;
+                transition: 0.15s all ease-out;
+                top: 3px;
+                position: relative;
+            }
+
+            .checkbox svg {
+                stroke: #000000;
+                stroke-width: 3px;
+                height: 0;
+                width: calc(var(--size) * 0.6);
+                position: absolute;
+                left: calc(var(--size) * 0.21);
+                top: calc(var(--size) * 0.2);
+                stroke-dasharray: 33;
+            }
+
+            @-webkit-keyframes draw-checkbox {
+                0% {
+                    stroke-dashoffset: 33;
+                }
+
+                100% {
+                    stroke-dashoffset: 0;
+                }
+            }
+
+            @keyframes draw-checkbox {
+                0% {
+                    stroke-dashoffset: 33;
+                }
+
+                100% {
+                    stroke-dashoffset: 0;
+                }
+            }
+        }
+    }
+
+    .text-center {
+        text-align: center;
+        font-size: 10px;
+    }
+
+    .line-through {
+        text-decoration: line-through;
+    }
+}
