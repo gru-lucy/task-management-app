@@ -1,12 +1,23 @@
 import { memo } from "react";
 
+// Define the props for the Checkbox component
 type CheckboxProps = {
-    id: number;
-    label: string;
-    checked?: boolean;
-    onChange: () => void;
+    id: number;              // Unique identifier for the checkbox
+    label: string;           // Text label to display next to the checkbox
+    checked?: boolean;      // Optional boolean to indicate if the checkbox is checked
+    onChange: () => void;   // Function to call when the checkbox state changes
 };
 
+/**
+ * CheckboxComponent renders a styled checkbox with an optional checked state and a label.
+ * 
+ * @param id - Unique identifier for the checkbox element
+ * @param label - Text label displayed next to the checkbox
+ * @param checked - Optional boolean indicating if the checkbox is checked
+ * @param onChange - Function called when the checkbox's state changes
+ * 
+ * @returns JSX.Element - A styled checkbox element
+ */
 const CheckboxComponent = ({
     id,
     label,
@@ -40,4 +51,5 @@ const CheckboxComponent = ({
     </div>
 );
 
+// Memoize the DateComponent to prevent unnecessary re-renders
 export const Checkbox = memo(CheckboxComponent);

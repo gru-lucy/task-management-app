@@ -31,7 +31,7 @@ export const Todo = () => {
         <div className="todo-list-layout">
             <Title />
             <AddSection
-                todo={todo}
+                task={todo}
                 inputChangeHandler={inputChangeHandler}
                 createTaskHandler={createTaskHandler}
             />

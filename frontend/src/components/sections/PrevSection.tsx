@@ -12,8 +12,18 @@ interface GroupedTasks {
     [date: string]: TaskWithStatus[];
 }
 
+/**
+ * Component for displaying previously fetched tasks grouped by date.
+ *
+ * It fetches tasks, allows toggling their status, and displays them organized by their creation date.
+ *
+ * @returns A JSX element representing the Previous Section.
+ */
 export const PrevSection = () => {
+    // State to manage the tasks and their statuses
     const [tasks, setTasks] = useState<Array<TaskWithStatus>>([]);
+
+    // Destructure tasks, loading state, error, and fetch function from the custom hook
     const { tasks: prevTasks, loading, error, fetchTasks } = useFetchTasks();
 
     const getLatestDate = useMemo((): string => {
@@ -21,6 +31,11 @@ export const PrevSection = () => {
             return moment(new Date()).format("YYYY-MM-DD");
         }
 
+        /**
+         * Computes the latest date from the current tasks or returns today's date if no tasks exist.
+         * 
+         * @returns A string representing the latest date in YYYY-MM-DD format.
+         */
         const latestDate = tasks.reduce((latest, current) => {
             const currentDate = new Date(current.created_at);
             return currentDate > latest ? currentDate : latest;
@@ -29,10 +44,18 @@ export const PrevSection = () => {
         return moment(latestDate).format("YYYY-MM-DD");
     }, [tasks]);
 
+    /**
+     * Handler function to fetch previous tasks based on the latest date.
+     */
     const loadPrevTasksHandler = () => {
         fetchTasks(getLatestDate);
     };
 
+    /**
+     * Toggles the completion status of a task.
+     * 
+     * @param id - The ID of the task to toggle.
+     */
     const statusHandler = (id: number) => {
         setTasks(tasks.map(task => {
             if (task.id === id) {
@@ -42,7 +65,11 @@ export const PrevSection = () => {
         }));
     };
 
-    // Group tasks by their created_at date
+    /**
+     * Groups tasks by their creation date.
+     * 
+     * @returns An object where each key is a date string and each value is an array of tasks created on that date.
+     */
     const groupedTasks = useMemo<GroupedTasks>(() => {
         return tasks.reduce((acc: GroupedTasks, task: TaskWithStatus) => {
             const date = moment(task.created_at).format("YYYY-MM-DD");
@@ -54,6 +81,7 @@ export const PrevSection = () => {
         }, {});
     }, [tasks]);
 
+    // Effect to update tasks when previous tasks are fetched
     useEffect(() => {
         if (prevTasks) {
             setTasks([
@@ -63,6 +91,7 @@ export const PrevSection = () => {
         }
     }, [prevTasks, tasks]);
 
+    // Render error message if there was an error fetching tasks
     if (error) return <p className="text-center">Error: {error}</p>;
 
     return (

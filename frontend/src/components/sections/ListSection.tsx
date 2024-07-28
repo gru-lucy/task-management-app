@@ -6,20 +6,45 @@ import { Date as CustomDate } from "../Date";
 import { OutlinedButton } from "../OutlinedButton";
 import { useFetchTasks } from "../../hooks/useFetchTasks";
 
+// Type definitions for the props of ListSection component
 type ListSectionProps = {
+    /**
+     * Optional task to be added to the list.
+     */
     task?: Task;
 };
 
+/**
+ * Component for displaying and managing a list of tasks with filtering by status.
+ * 
+ * @param props - The properties passed to the component.
+ * @returns A JSX element representing the List Section.
+ */
 export const ListSection = ({ task }: ListSectionProps) => {
+    // State for managing tasks with their completion status
     const [tasks, setTasks] = useState<Array<TaskWithStatus>>([]);
+
+    // State for managing the current status filter
     const [status, setStatus] = useState<Status>(Status.ALL);
+
+    // Fetch tasks from the hook
     const { tasks: prevTasks, error, fetchTasks } = useFetchTasks();
+
+    // Get the list of status keys (e.g., ALL, DONE, OPEN)
     const statusKeys = Object.values(Status);
 
+    /**
+     * Handler function to change the current status filter.
+     * @param key - The status to set as the current filter.
+     */
     const changeCurrentStatusHandler = (key: Status) => {
         setStatus(key);
     };
 
+    /**
+     * Handler function to toggle the completion status of a task.
+     * @param id - The ID of the task to toggle.
+     */
     const statusHandler = (id: number) => {
         setTasks(tasks.map(task => {
             if (task.id === id) {
@@ -29,22 +54,28 @@ export const ListSection = ({ task }: ListSectionProps) => {
         }));
     };
 
+    /**
+     * Memoized list of tasks to display based on the current status filter.
+     */
     const renderedTasks = useMemo(() => {
         if (status === Status.DONE) return tasks.filter(task => task.done);
         else if (status === Status.OPEN) return tasks.filter(task => !task.done);
         return tasks;
     }, [status, tasks]);
 
+    // Effect to fetch tasks when the component mounts or fetchTasks changes
     useEffect(() => {
         fetchTasks();
     }, [fetchTasks]);
 
+    // Effect to update tasks with the fetched previous tasks
     useEffect(() => {
         if (prevTasks) {
             setTasks(prevTasks.map((task) => ({ ...task, done: false })))
         }
     }, [prevTasks]);
 
+    // Effect to add a new task if it is provided as a prop
     useEffect(() => {
         if (task) {
             setTasks((prevTasks) => {
@@ -56,10 +87,13 @@ export const ListSection = ({ task }: ListSectionProps) => {
         }
     }, [task]);
 
+    // Render message when there are no tasks
     if (!tasks.length) return <p className="text-center">No tasks</p>
 
+    // Render error message if there was an error fetching tasks
     if (error) return <p className="text-center">Error: {error}</p>;
 
+    // Render the list section with date, status filters, and tasks
     return (
         <div className="list-section">
             <div className="date-status">

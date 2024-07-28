@@ -9,7 +9,20 @@ Base = declarative_base()
 
 @pytest.fixture(scope='module')
 def test_db():
-    # Set up the in-memory SQLite database
+    """
+    Sets up an in-memory SQLite database for testing purposes.
+
+    This fixture creates a database engine, sets up a session maker, and
+    initializes the database schema before tests are run. After the tests
+    complete, the fixture tears down the database by closing the session
+    and dropping the schema.
+
+    Yields:
+    - db: A SQLAlchemy SessionLocal instance connected to the in-memory database.
+
+    Usage:
+    - This fixture can be used in tests to interact with a temporary database.
+    """
     engine = create_engine('postgresql://postgres:postgres@localhost:5432/test_db')
     TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     Base.metadata.create_all(bind=engine)
