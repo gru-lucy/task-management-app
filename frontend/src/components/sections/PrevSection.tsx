@@ -89,7 +89,8 @@ export const PrevSection = () => {
                 ...prevTasks.map((task) => ({ ...task, done: false })),
             ]);
         }
-    }, [prevTasks, tasks]);
+        // eslint-disable-next-line
+    }, [prevTasks]);
 
     // Render error message if there was an error fetching tasks
     if (error) return <p className="text-center">Error: {error}</p>;
