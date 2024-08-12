@@ -24,7 +24,7 @@ describe("Task Management", () => {
     cy.intercept("POST", "http://localhost:8000/tasks", {
       statusCode: 201,
       body: {
-        id: 1, // Mock task ID
+        id: 3, // Mock task ID
         task: "New Task",
         created_at: new Date().toISOString(),
         done: false,
