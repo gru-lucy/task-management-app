@@ -66,7 +66,8 @@ export const ListSection = ({ task }: ListSectionProps) => {
     // Effect to fetch tasks when the component mounts or fetchTasks changes
     useEffect(() => {
         fetchTasks();
-    }, [fetchTasks]);
+        // eslint-disable-next-line
+    }, []);
 
     // Effect to update tasks with the fetched previous tasks
     useEffect(() => {

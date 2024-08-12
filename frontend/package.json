@@ -48,6 +48,7 @@
     "@babel/preset-typescript": "^7.24.7",
     "@types/jest": "^29.5.12",
     "babel-jest": "^29.7.0",
+    "cypress": "^13.13.2",
     "jest-fetch-mock": "^3.0.3",
     "msw": "^2.3.5",
     "ts-jest": "^29.2.4"
