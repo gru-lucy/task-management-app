@@ -56,12 +56,14 @@ export const useCreateTask = () => {
             });
 
             // Check if the response status is not OK
+            console.warn(await response.json(), "data +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
             if (!response.ok) {
                 throw new Error('Failed to create task');
             }
 
             // Parse the response JSON data
             const data: Task = await response.json();
+
             // Update the task state with the created task
             setTask(data);
             // Return success status with the created task

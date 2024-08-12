@@ -10,7 +10,7 @@ Base = declarative_base()
 @pytest.fixture(scope='module')
 def test_db():
     """
-    Sets up an in-memory SQLite database for testing purposes.
+    Sets up an postgresql database for testing purposes.
 
     This fixture creates a database engine, sets up a session maker, and
     initializes the database schema before tests are run. After the tests
